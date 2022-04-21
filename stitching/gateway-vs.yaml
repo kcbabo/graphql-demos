@@ -1,0 +1,40 @@
+apiVersion: gateway.solo.io/v1
+kind: VirtualService
+metadata:
+  name: default
+  namespace: gloo-system
+spec:
+  virtualHost:
+    domains:
+    - '*'
+    options:
+      cors:
+        allowCredentials: true
+        allowHeaders:
+        - content-type
+        - x-apollo-tracing
+        allowMethods:
+        - POST
+        allowOriginRegex:
+        - \*
+    routes:
+    - graphqlApiRef:
+        name: default-products-8080
+        namespace: gloo-system
+      matchers:
+      - prefix: /graphql-products
+    - graphqlApiRef:
+        name: default-users-8080
+        namespace: gloo-system
+      matchers:
+      - prefix: /graphql-users
+    - graphqlApiRef:
+        name: default-reviews-8080
+        namespace: gloo-system
+      matchers:
+      - prefix: /graphql-reviews
+    - graphqlApiRef:
+        name: stitched-gql
+        namespace: gloo-system
+      matchers:
+      - prefix: /graphql

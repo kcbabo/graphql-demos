@@ -1,0 +1,15 @@
+query mocks {
+  foo1 :getTrack(trackId:"c_0") {
+    ...trackInfo
+  }
+  
+  foo2 :getTrack(trackId:"c_1") {
+    ...trackInfo
+  }
+}
+
+fragment trackInfo on Track {
+  title
+  length
+  topic
+}

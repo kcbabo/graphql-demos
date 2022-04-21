@@ -1,0 +1,14 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: stitched-gql-no-type-merge
+  namespace: gloo-system
+spec:
+  stitchedSchema:
+    subschemas:
+    - name: default-users-8080
+      namespace: gloo-system
+    - name: default-reviews-8080
+      namespace: gloo-system
+    - name: default-products-8080
+      namespace: gloo-system

@@ -1,0 +1,109 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: fragment-example
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          default-rest-example-5000_gloo-system|Mutation|createTrack:
+            restResolver:
+              request:
+                body:
+                  authorId: '{$args.trackInput.authorId}'
+                  createdAt: '{$args.trackInput.createdAt}'
+                  description: '{$args.trackInput.description}'
+                  id: '{$args.trackInput.id}'
+                  length: '{$args.trackInput.length}'
+                  modulesCount: '{$args.trackInput.modulesCount}'
+                  numberOfViews: '{$args.trackInput.numberOfViews}'
+                  thumbnail: '{$args.trackInput.thumbnail}'
+                  title: '{$args.trackInput.title}'
+                  topic: '{$args.trackInput.topic}'
+                headers:
+                  :method: POST
+                  :path: /tracks
+              upstreamRef:
+                name: default-rest-example-5000
+                namespace: gloo-system
+          default-rest-example-5000_gloo-system|Mutation|deleteTrack:
+            restResolver:
+              request:
+                headers:
+                  :method: DELETE
+                  :path: /tracks/{$args.trackId}
+              upstreamRef:
+                name: default-rest-example-5000
+                namespace: gloo-system
+          default-rest-example-5000_gloo-system|Mutation|updateTrack:
+            restResolver:
+              request:
+                body:
+                  authorId: '{$args.trackInput.authorId}'
+                  createdAt: '{$args.trackInput.createdAt}'
+                  description: '{$args.trackInput.description}'
+                  id: '{$args.trackInput.id}'
+                  length: '{$args.trackInput.length}'
+                  modulesCount: '{$args.trackInput.modulesCount}'
+                  numberOfViews: '{$args.trackInput.numberOfViews}'
+                  thumbnail: '{$args.trackInput.thumbnail}'
+                  title: '{$args.trackInput.title}'
+                  topic: '{$args.trackInput.topic}'
+                headers:
+                  :method: PUT
+                  :path: /tracks/{$args.trackId}
+              upstreamRef:
+                name: default-rest-example-5000
+                namespace: gloo-system
+          default-rest-example-5000_gloo-system|Query|getTrack:
+            restResolver:
+              request:
+                headers:
+                  :method: GET
+                  :path: /tracks/{$args.trackId}
+              upstreamRef:
+                name: default-rest-example-5000
+                namespace: gloo-system
+          default-rest-example-5000_gloo-system|Query|getTracks:
+            restResolver:
+              request:
+                headers:
+                  :method: GET
+                  :path: /tracks
+              upstreamRef:
+                name: default-rest-example-5000
+                namespace: gloo-system
+    schemaDefinition: "\"\"\"Marks an element of a GraphQL schema as no longer supported.\"\"\"\ndirective
+      @deprecated(\n  \n  \"\"\"Explains why this element was deprecated, usually
+      also including a suggestion for how to access supported similar data. Formattedin
+      [Markdown](https://daringfireball.net/projects/markdown/).\"\"\"\n  reason:
+      String = \"No longer supported\"\n) on FIELD_DEFINITION | ENUM_VALUE\n\ntype
+      Query {\n  \n  \"\"\"\n  Gets a list of all `Track` entities.\n  \n  Equivalent
+      to OpenApiSpec 'Example REST API' GET /tracks\n  \"\"\"\n  getTracks: [Track]
+      @resolve(name: \"default-rest-example-5000_gloo-system|Query|getTracks\")\n
+      \ \n  \"\"\"\n  Gets the details of a single instance of a `Track`.\n  \n  Equivalent
+      to OpenApiSpec 'Example REST API' GET /tracks/{trackId}\n  \"\"\"\n  getTrack(\n
+      \   \n    \"\"\"A unique identifier for a `Track`.\"\"\"\n    trackId: String!\n
+      \ ): Track @resolve(name: \"default-rest-example-5000_gloo-system|Query|getTrack\")\n}\n\ntype
+      Mutation {\n  \n  \"\"\"\n  Deletes an existing `Track`.\n  \n  Equivalent to
+      OpenApiSpec 'Example REST API' DELETE /tracks/{trackId}\n  \"\"\"\n  deleteTrack(\n
+      \   \n    \"\"\"A unique identifier for a `Track`.\"\"\"\n    trackId: String!\n
+      \ ): JSON @resolve(name: \"default-rest-example-5000_gloo-system|Mutation|deleteTrack\")\n
+      \ \n  \"\"\"\n  Creates a new instance of a `Track`.\n  \n  Equivalent to OpenApiSpec
+      'Example REST API' POST /tracks\n  \"\"\"\n  createTrack(trackInput: TrackInput!):
+      JSON @resolve(name: \"default-rest-example-5000_gloo-system|Mutation|createTrack\")\n
+      \ \n  \"\"\"\n  Updates an existing `Track`.\n  \n  Equivalent to OpenApiSpec
+      'Example REST API' PUT /tracks/{trackId}\n  \"\"\"\n  updateTrack(\n    \n    \"\"\"A
+      unique identifier for a `Track`.\"\"\"\n    trackId: String!\n    trackInput:
+      TrackInput!\n  ): JSON @resolve(name: \"default-rest-example-5000_gloo-system|Mutation|updateTrack\")\n}\n\ninput
+      TrackInput {\n  createdAt: String\n  numberOfViews: Int\n  topic: String\n  description:
+      String\n  title: String\n  id: String\n  authorId: String\n  modulesCount: Int\n
+      \ thumbnail: String\n  length: Int\n}\n\ntype Track {\n  thumbnail: String\n
+      \ id: String\n  numberOfViews: Int\n  title: String\n  length: Int\n  description:
+      String\n  topic: String\n  createdAt: String\n  authorId: String\n  modulesCount:
+      Int\n}\n\n\"\"\"The `JSON` scalar type represents JSON values as specified by
+      [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).\"\"\"\nscalar
+      JSON\n"
