@@ -19,7 +19,7 @@ spec:
         allowOriginRegex:
         - \*
     routes:
-    - graphqlApiRef:
+    - graphqlSchemaRef:
         name: default-rest-example-5000
         namespace: gloo-system
       matchers:
