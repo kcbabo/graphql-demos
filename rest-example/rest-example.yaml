@@ -28,7 +28,8 @@ metadata:
   name: rest-example
   namespace: default
   labels:
-    service: rest-example
+    app: rest-example
+    discovery.solo.io/function_discovery: enabled
 spec:
   ports:
   - port: 5000
