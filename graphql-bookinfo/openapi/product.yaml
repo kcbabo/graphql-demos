@@ -1,0 +1,55 @@
+openapi: 3.0.1
+info:
+  title: Product API
+  description: This is the Product API from the Istio BookInfo sample application.
+  termsOfService: https://istio.io/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Learn more about the Istio BookInfo application
+  url: https://istio.io/docs/samples/bookinfo.html
+servers:
+- url: /api/v1
+tags:
+- name: product
+  description: Information about a product (in this case a book)
+paths:
+  /products:
+    get:
+      tags:
+      - product
+      summary: List all products
+      description: List all products available in the application with a minimum amount
+        of information.
+      operationId: getProducts
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    Product:
+      required:
+      - descriptionHtml
+      - id
+      - title
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Product id
+          format: int32
+        title:
+          type: string
+          description: Title of the book
+        descriptionHtml:
+          type: string
+          description: Description of the book - may contain HTML tags
+      description: Basic information about a product

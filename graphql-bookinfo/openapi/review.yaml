@@ -1,0 +1,75 @@
+openapi: 3.0.1
+info:
+  title: Review API
+  description: This is the Review API for the Istio BookInfo sample application.
+  termsOfService: https://istio.io/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Learn more about the Istio BookInfo application
+  url: https://istio.io/docs/samples/bookinfo.html
+servers:
+- url: /api/v1
+tags:
+- name: review
+  description: Review information for a product
+paths:
+  /reviews/{id}:
+    get:
+      tags:
+      - review
+      summary: Get reviews for a product
+      description: Get reviews for a product, including review text and possibly ratings
+        information.
+      operationId: getProductReviews
+      parameters:
+      - name: id
+        in: path
+        description: Product id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductReviews'
+        400:
+          description: Invalid product id
+          content: {}
+components:
+  schemas:
+    ProductReviews:
+      required:
+      - id
+      - reviews
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Product id
+          format: int32
+        reviews:
+          type: array
+          description: List of reviews
+          items:
+            $ref: '#/components/schemas/Review'
+      description: Object containing reviews for a product
+    Review:
+      required:
+      - reviewer
+      - text
+      type: object
+      properties:
+        reviewer:
+          type: string
+          description: Name of the reviewer
+        text:
+          type: string
+          description: Review text
+      description: Review of a product

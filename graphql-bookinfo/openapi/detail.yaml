@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: Details API
+  description: This is the Details API from the Istio BookInfo sample application.
+  termsOfService: https://istio.io/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Learn more about the Istio BookInfo application
+  url: https://istio.io/docs/samples/bookinfo.html
+servers:
+- url: /
+tags:
+- name: details
+  description: Information about a product (in this case a book)
+paths:
+  /details/{id}:
+    get:
+      tags:
+      - details
+      summary: Get individual product details
+      description: Get detailed information about an individual product with the given
+        id.
+      operationId: getProduct
+      parameters:
+      - name: id
+        in: path
+        description: Product id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetails'
+        400:
+          description: Invalid product id
+          content: {}
+components:
+  schemas:
+    ProductDetails:
+      required:
+      - ISBN-10
+      - ISBN-13
+      - author
+      - id
+      - language
+      - pages
+      - publisher
+      - type
+      - year
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Product id
+          format: int32
+        publisher:
+          type: string
+          description: Publisher of the book
+        language:
+          type: string
+          description: Language of the book
+        author:
+          type: string
+          description: Author of the book
+        ISBN-10:
+          type: string
+          description: ISBN-10 of the book
+        ISBN-13:
+          type: string
+          description: ISBN-13 of the book
+        year:
+          type: integer
+          description: Year the book was first published in
+          format: int32
+        type:
+          type: string
+          description: Type of the book
+          enum:
+          - paperback
+          - hardcover
+        pages:
+          type: integer
+          description: Number of pages of the book
+          format: int32
+      description: Detailed information about a product
+
