@@ -1,0 +1,3 @@
+{
+  "query": "{productsForHome { title detail { author pages } review { reviews { text }  } rating { ratings { Reviewer1 } } } }"
+}

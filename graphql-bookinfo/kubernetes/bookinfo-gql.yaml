@@ -1,0 +1,117 @@
+apiVersion: graphql.gloo.solo.io/v1alpha1
+kind: GraphQLSchema
+metadata:
+  name: bookinfo-graphql
+  namespace: gloo-system
+spec:
+  enableIntrospection: true
+  resolutions:
+  - matcher:
+      fieldMatcher:
+        field: productsForHome
+        type: Query
+    restResolver:
+      requestTransform:
+        headers:
+          :method:
+            typedProvider:
+              value: GET
+          :path:
+            typedProvider:
+              value: /api/v1/products
+      upstreamRef:
+        name: default-productpage-9080
+        namespace: gloo-system
+  - matcher:
+      fieldMatcher:
+        field: detail
+        type: Product
+    restResolver:
+      requestTransform:
+        headers:
+          :method:
+            typedProvider:
+              value: GET
+          :path:
+            graphqlParent:
+              path:
+                - key: id
+            providerTemplate: /details/{}
+      upstreamRef:
+        name:  default-details-9080
+        namespace: gloo-system
+  - matcher:
+      fieldMatcher:
+        field: review
+        type: Product
+    restResolver:
+      requestTransform:
+        headers:
+          :method:
+            typedProvider:
+              value: GET
+          :path:
+            graphqlParent:
+              path:
+                - key: id
+            providerTemplate: /reviews/{}
+      upstreamRef:
+        name:  default-reviews-9080
+        namespace: gloo-system
+  - matcher:
+      fieldMatcher:
+        field: rating
+        type: Product
+    restResolver:
+      requestTransform:
+        headers:
+          :method:
+            typedProvider:
+              value: GET
+          :path:
+            graphqlParent:
+              path:
+                - key: id
+            providerTemplate: /ratings/{}
+      upstreamRef:
+        name:  default-ratings-9080
+        namespace: gloo-system
+  schema: "
+    type Query {
+      productsForHome: [Product]
+    }
+
+    type Product {
+      id: String
+      title: String
+      descriptionHtml: String
+      detail : ProductDetail
+      review: ProductReview
+      rating: ProductRating
+    }
+
+    type ProductDetail {
+      id: String
+      author: String
+      pages: Int
+      year: Int
+    }
+
+    type ProductReview {
+      reviews : [Review]
+    }
+
+    type ProductRating {
+      ratings : Rating
+    }
+
+    type Rating {
+      Reviewer1 : String
+      Reviewer2 : String
+    }
+
+    type Review {
+      reviewer: String
+      text: String
+    }
+    "
