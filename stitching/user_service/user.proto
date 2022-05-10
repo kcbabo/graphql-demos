@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package user;
+
+message User {
+  string first_name = 1;
+  string last_name = 2;
+  // Global unique identifier for the user
+  string username = 3;
+  // The user's country code
+  string country_code = 5;
+}
+
+message UserSearch {
+  // Get user by username
+  string username = 1;
+}
+
+message UserByCountry {
+  // Get users by country code
+  string country_code = 1;
+}
+
+message Users {
+  repeated User users = 1;
+}
+
+service UserService {
+  // Get user by username
+  rpc GetUser(UserSearch) returns (User);
+  // Get users that are in a country
+  rpc GetUserByCountry(UserByCountry) returns (Users);
+}

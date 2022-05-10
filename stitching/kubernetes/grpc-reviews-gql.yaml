@@ -1,0 +1,45 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: default-reviews-8080
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          Query|ReviewService.GetReviewsForProduct:
+            grpcResolver:
+              requestTransform:
+                methodName: GetReviewsForProduct
+                outgoingMessageJson:
+                  product_id: '{$args.ReviewsForProduct.product_id}'
+                serviceName: review.ReviewService
+              upstreamRef:
+                name: default-reviews-8080
+                namespace: gloo-system
+    grpcDescriptorRegistry:
+      protoDescriptorBin: CvECChtyZXZpZXdfc2VydmljZS9yZXZpZXcucHJvdG8SBnJldmlldyIiCgRVc2VyEhoKCHVzZXJuYW1lGAEgASgJUgh1c2VybmFtZSJgCgZSZXZpZXcSJAoGYXV0aG9yGAEgASgLMgwucmV2aWV3LlVzZXJSBmF1dGhvchIYCgdjb250ZW50GAMgASgJUgdjb250ZW50EhYKBnJhdGluZxgEIAEoBVIGcmF0aW5nIjIKEVJldmlld3NGb3JQcm9kdWN0Eh0KCnByb2R1Y3RfaWQYASABKANSCXByb2R1Y3RJZCIzCgdSZXZpZXdzEigKB3Jldmlld3MYASADKAsyDi5yZXZpZXcuUmV2aWV3UgdyZXZpZXdzMlMKDVJldmlld1NlcnZpY2USQgoUR2V0UmV2aWV3c0ZvclByb2R1Y3QSGS5yZXZpZXcuUmV2aWV3c0ZvclByb2R1Y3QaDy5yZXZpZXcuUmV2aWV3c2IGcHJvdG8z
+    schemaDefinition: |
+      input ReviewsForProductInput {
+        product_id: Int
+      }
+
+      type Reviews {
+        reviews: [Review]
+      }
+
+      type Review {
+        author: User
+        content: String
+        rating: Int
+      }
+
+      type User {
+        username: String
+      }
+
+      type Query {
+        GetReviewsForProduct(ReviewsForProduct: ReviewsForProductInput): Reviews @resolve(name: "Query|ReviewService.GetReviewsForProduct")
+      }

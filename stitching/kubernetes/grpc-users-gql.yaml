@@ -1,0 +1,57 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: default-users-8080
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          Query|UserService.GetUser:
+            grpcResolver:
+              requestTransform:
+                methodName: GetUser
+                outgoingMessageJson:
+                  username: '{$args.UserSearch.username}'
+                serviceName: user.UserService
+              upstreamRef:
+                name: default-users-8080
+                namespace: gloo-system
+          Query|UserService.GetUserByCountry:
+            grpcResolver:
+              requestTransform:
+                methodName: GetUserByCountry
+                outgoingMessageJson:
+                  country_code: '{$args.UserByCountry.country_code}'
+                serviceName: user.UserService
+              upstreamRef:
+                name: default-users-8080
+                namespace: gloo-system
+    grpcDescriptorRegistry:
+      protoDescriptorBin: CqIDChd1c2VyX3NlcnZpY2UvdXNlci5wcm90bxIEdXNlciKBAQoEVXNlchIdCgpmaXJzdF9uYW1lGAEgASgJUglmaXJzdE5hbWUSGwoJbGFzdF9uYW1lGAIgASgJUghsYXN0TmFtZRIaCgh1c2VybmFtZRgDIAEoCVIIdXNlcm5hbWUSIQoMY291bnRyeV9jb2RlGAUgASgJUgtjb3VudHJ5Q29kZSIoCgpVc2VyU2VhcmNoEhoKCHVzZXJuYW1lGAEgASgJUgh1c2VybmFtZSIyCg1Vc2VyQnlDb3VudHJ5EiEKDGNvdW50cnlfY29kZRgBIAEoCVILY291bnRyeUNvZGUiKQoFVXNlcnMSIAoFdXNlcnMYASADKAsyCi51c2VyLlVzZXJSBXVzZXJzMmwKC1VzZXJTZXJ2aWNlEicKB0dldFVzZXISEC51c2VyLlVzZXJTZWFyY2gaCi51c2VyLlVzZXISNAoQR2V0VXNlckJ5Q291bnRyeRITLnVzZXIuVXNlckJ5Q291bnRyeRoLLnVzZXIuVXNlcnNiBnByb3RvMw==
+    schemaDefinition: |
+      input UserSearchInput {
+        username: String
+      }
+
+      input UserByCountryInput {
+        country_code: String
+      }
+
+      type User {
+        first_name: String
+        last_name: String
+        username: String
+        country_code: String
+      }
+
+      type Users {
+        users: [User]
+      }
+
+      type Query {
+        GetUser(UserSearch: UserSearchInput): User @resolve(name: "Query|UserService.GetUser")
+        GetUserByCountry(UserByCountry: UserByCountryInput): Users @resolve(name: "Query|UserService.GetUserByCountry")
+      }

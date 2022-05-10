@@ -1,0 +1,78 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: default-products-8080
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          Query|ProductService.GetProduct:
+            grpcResolver:
+              requestTransform:
+                methodName: GetProduct
+                outgoingMessageJson:
+                  id: '{$args.ProductSearch.id}'
+                  name: '{$args.ProductSearch.name}'
+                serviceName: product.ProductService
+              upstreamRef:
+                name: default-products-8080
+                namespace: gloo-system
+          Query|ProductService.GetProducts:
+            grpcResolver:
+              requestTransform:
+                methodName: GetProducts
+                outgoingMessageJson:
+                  name: '{$args.ProductsSearch.name}'
+                serviceName: product.ProductService
+              upstreamRef:
+                name: default-products-8080
+                namespace: gloo-system
+          Query|ProductService.GetProductsSoldByUser:
+            grpcResolver:
+              requestTransform:
+                methodName: GetProductsSoldByUser
+                outgoingMessageJson:
+                  username: '{$args.ProductsSoldByUser.username}'
+                serviceName: product.ProductService
+              upstreamRef:
+                name: default-products-8080
+                namespace: gloo-system
+    grpcDescriptorRegistry:
+      protoDescriptorBin: CtYECh1wcm9kdWN0X3NlcnZpY2UvcHJvZHVjdC5wcm90bxIHcHJvZHVjdCIiCgRVc2VyEhoKCHVzZXJuYW1lGAEgASgJUgh1c2VybmFtZSJqCgdQcm9kdWN0EhIKBG5hbWUYASABKAlSBG5hbWUSDgoCaWQYAiABKANSAmlkEiUKBnNlbGxlchgDIAEoCzINLnByb2R1Y3QuVXNlclIGc2VsbGVyEhQKBXByaWNlGAQgASgJUgVwcmljZSIzCg1Qcm9kdWN0U2VhcmNoEg4KAmlkGAEgASgDUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lIiQKDlByb2R1Y3RzU2VhcmNoEhIKBG5hbWUYASABKAlSBG5hbWUiMAoSUHJvZHVjdHNTb2xkQnlVc2VyEhoKCHVzZXJuYW1lGAEgASgJUgh1c2VybmFtZSI4CghQcm9kdWN0cxIsCghwcm9kdWN0cxgBIAMoCzIQLnByb2R1Y3QuUHJvZHVjdFIIcHJvZHVjdHMyzAEKDlByb2R1Y3RTZXJ2aWNlEjYKCkdldFByb2R1Y3QSFi5wcm9kdWN0LlByb2R1Y3RTZWFyY2gaEC5wcm9kdWN0LlByb2R1Y3QSOQoLR2V0UHJvZHVjdHMSFy5wcm9kdWN0LlByb2R1Y3RzU2VhcmNoGhEucHJvZHVjdC5Qcm9kdWN0cxJHChVHZXRQcm9kdWN0c1NvbGRCeVVzZXISGy5wcm9kdWN0LlByb2R1Y3RzU29sZEJ5VXNlchoRLnByb2R1Y3QuUHJvZHVjdHNiBnByb3RvMw==
+    schemaDefinition: |
+      input ProductSearchInput {
+        id: Int
+        name: String
+      }
+
+      input ProductsSearchInput {
+        name: String
+      }
+
+      input ProductsSoldByUserInput {
+        username: String
+      }
+
+      type Product {
+        name: String
+        id: Int
+        seller: User
+        price: String
+      }
+
+      type User {
+        username: String
+      }
+
+      type Products {
+        products: [Product]
+      }
+
+      type Query {
+        GetProduct(ProductSearch: ProductSearchInput): Product @resolve(name: "Query|ProductService.GetProduct")
+        GetProducts(ProductsSearch: ProductsSearchInput): Products @resolve(name: "Query|ProductService.GetProducts")
+        GetProductsSoldByUser(ProductsSoldByUser: ProductsSoldByUserInput): Products @resolve(name: "Query|ProductService.GetProductsSoldByUser")
+      }

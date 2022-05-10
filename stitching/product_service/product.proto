@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package product;
+
+message User {
+  string username = 1;
+}
+
+message Product {
+  string name = 1;
+  int64 id = 2;
+  // seller username
+  User seller = 3;
+  // price
+  string price = 4;
+}
+
+message ProductSearch {
+  // search product by id
+  int64 id = 1;
+  // search product by name
+  // if product id is empty, search by name
+  string name = 2;
+}
+
+message ProductsSearch {
+  // returns a list of products similar to the search name
+  string name = 1;
+}
+
+message ProductsSoldByUser {
+  // search product by user
+  string username = 1;
+}
+
+message Products {
+  repeated Product products = 1;
+}
+
+service ProductService {
+  // Get user by username
+  rpc GetProduct(ProductSearch) returns (Product);
+  rpc GetProducts(ProductsSearch) returns (Products);
+  // Get users that are in a country
+  rpc GetProductsSoldByUser(ProductsSoldByUser) returns (Products);
+}

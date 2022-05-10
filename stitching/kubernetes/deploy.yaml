@@ -45,7 +45,6 @@ kind: Service
 metadata:
   labels:
     app: users
-    discovery.solo.io/function_discovery: enabled
   name: users
   namespace: default
 spec:
@@ -105,7 +104,6 @@ kind: Service
 metadata:
   labels:
     app: products
-    discovery.solo.io/function_discovery: enabled
   name: products
   namespace: default
 spec:
@@ -165,7 +163,6 @@ kind: Service
 metadata:
   labels:
     app: reviews
-    discovery.solo.io/function_discovery: enabled
   name: reviews
   namespace: default
 spec:

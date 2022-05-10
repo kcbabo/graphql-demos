@@ -1,0 +1,3 @@
+{
+  "query": "{GetProductsSoldByUser(ProductsSoldByUser: { username: \"isimon\" }) { products { name id price seller { username } } } }"
+}

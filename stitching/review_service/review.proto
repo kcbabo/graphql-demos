@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package review;
+
+message User {
+  string username = 1;
+}
+
+message Review {
+  // review author
+  User author = 1;
+  // review product
+  // int64 product_id = 2;
+  // review content
+  string content = 3;
+  // rating out of 10
+  int32 rating = 4;
+}
+
+message ReviewsForProduct {
+  // search reviews for a product
+  int64 product_id = 1;
+}
+
+message Reviews {
+  repeated Review reviews = 1;
+}
+
+
+service ReviewService {
+  // Get user by username
+  rpc GetReviewsForProduct(ReviewsForProduct) returns (Reviews);
+}
