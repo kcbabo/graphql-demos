@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rest-example
+  name: rest-example
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: rest-example
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rest-example
+    spec:
+      containers:
+      - image: kcbabo/rest-example:latest
+        name: rest-example
+        ports:
+        - containerPort: 5000
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rest-example
+  namespace: default
+  labels:
+    app: rest-example
+    discovery.solo.io/function_discovery: enabled
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    app: rest-example

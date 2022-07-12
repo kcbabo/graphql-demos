@@ -1,0 +1,37 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: petstore-graphql
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          Query|pets:
+            restResolver:
+              request:
+                headers:
+                  :method: GET
+                  :path: /api/pets
+                  Authorization: "{$headers.Authorization}"
+              upstreamRef:
+                name: default-petstore-8080
+                namespace: gloo-system
+    schemaDefinition: |
+      type Query {
+        """List of all pets"""
+        pets: [Pet] @resolve(name: "Query|pets")
+      }
+
+      """Each pet has a Pet entry"""
+      type Pet {
+        """Unique identifier for pet"""
+      id: String
+      """The pet's name"""
+      name: String
+      """Pet status in store"""
+      status: String
+      }
+
