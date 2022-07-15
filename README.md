@@ -14,5 +14,11 @@ Demonstrates using a mock resolver to return data for a GraphQL query without an
 ### rest-example
 Basic REST API with OpenAPI 3 definition that's useful for demonstrating discovery/autogen. This one has mutations for creating/updating/deleting Track objects which makes it handy for showing off more GraphQL language features.
 
-### stitching
+### stitching-grpc
 Three gRPC APIs that leverage autogeneration to create GraphQL subgraphs, then we stitch them together into a single unified graph.
+
+### petstore
+GraphQL API for the classic REST petstore example
+
+### remote-resolver
+Demonstrates use of remote-resolver to incroporate an existing GraphQL API (Tracks API) into a Gloo GraphQL remote resolver.
