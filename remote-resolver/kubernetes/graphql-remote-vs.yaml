@@ -1,0 +1,33 @@
+apiVersion: gateway.solo.io/v1
+kind: VirtualService
+metadata:
+  name: default
+  namespace: gloo-system
+spec:
+  virtualHost:
+    domains:
+    - '*'
+    options:
+      cors:
+        allowCredentials: true
+        allowHeaders:
+        - apollo-query-plan-experimental
+        - content-type
+        - x-apollo-tracing
+        allowMethods:
+        - POST
+        allowOriginRegex:
+        - \*
+    routes:
+    - graphqlApiRef:
+        name: remote-graphql
+        namespace: gloo-system
+      matchers:
+      - prefix: /graphql
+    - matchers:
+      - prefix: /tracks-graphql
+      routeAction:
+        single:
+          upstream:
+            name: default-tracks-graphql-api-4000
+            namespace: gloo-system

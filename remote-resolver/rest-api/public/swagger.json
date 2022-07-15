@@ -1,0 +1,300 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "REST API for Catstronauts to retrieve data for tracks, authors and modules.",
+      "version": "1.0.0",
+      "title": "Catstronauts REST API"
+    },
+    "tags": [
+      {
+        "name": "Tracks",
+        "description": "A track is a collection of modules around a topic for catstronauts to learn about."
+      },
+      {
+        "name": "Authors"
+      },
+      {
+        "name": "Modules"
+      }
+    ],
+    "paths": {
+      "/tracks": {
+        "get": {
+          "tags": [
+            "Tracks"
+          ],
+          "summary": "Retrieves a list of tracks",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful. Returns an array of Track objects.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Track"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/track/{id}": {
+        "get": {
+          "tags": [
+            "Tracks"
+          ],
+          "summary": "Find track by ID",
+          "description": "Returns a single track",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Track ID",
+              "required": true,
+              "type": "string",
+              "example": "c_0"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful. Returns a single track.",
+              "schema": {
+                "$ref": "#/definitions/Track"
+              }
+            },
+            "404": {
+              "description": "Track not found."
+            }
+          }
+        }
+      },
+      "/track/{id}/modules": {
+        "get": {
+          "tags": [
+            "Tracks"
+          ],
+          "summary": "Retrieves the list of modules for a given track",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Track ID",
+              "required": true,
+              "type": "string",
+              "example": "c_0"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful. Returns the list of modules for a given track.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Module"
+                }
+              }
+            },
+            "404": {
+              "description": "Track not found."
+            }
+          }
+        }
+      },
+      "/track/{id}/numberOfViews": {
+        "patch": {
+          "tags": [
+            "Tracks"
+          ],
+          "summary": "Updates the number of views for a track",
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Track ID",
+              "required": true,
+              "type": "string",
+              "example": "c_0"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful. Returns the updated Track object.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Track"
+                }
+              }
+            },
+            "404": {
+              "description": "Track not found."
+            }
+          }
+        }
+      },
+      "/author/{id}": {
+        "get": {
+          "tags": [
+            "Authors"
+          ],
+          "summary": "Find author by ID",
+          "description": "Returns a single author",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Author ID",
+              "required": true,
+              "type": "string",
+              "example": "cat-1"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful. Returns a single author.",
+              "schema": {
+                "$ref": "#/definitions/Author"
+              }
+            },
+            "404": {
+              "description": "Author not found."
+            }
+          }
+        }
+      },
+      "/module/{id}": {
+        "get": {
+          "tags": [
+            "Modules"
+          ],
+          "summary": "Find module by ID",
+          "description": "Returns a single module",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Module ID",
+              "required": true,
+              "type": "string",
+              "example": "l_0"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful. Returns a single module.",
+              "schema": {
+                "$ref": "#/definitions/Module"
+              }
+            },
+            "404": {
+              "description": "Module not found."
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Track": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "numberOfViews": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "modulesCount": {
+            "type": "integer"
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Author": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          }
+        }
+      },
+      "Module": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "trackId": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "length": {
+            "type": "integer"
+          },
+          "content": {
+            "type": "string"
+          },
+          "videoUrl": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }

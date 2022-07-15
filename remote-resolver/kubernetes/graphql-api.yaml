@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tracks-rest-api
+  name: tracks-rest-api
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: tracks-rest-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tracks-rest-api
+    spec:
+      containers:
+      - image: kcbabo/tracks-rest-api:latest
+        name: tracks-rest-api
+        ports:
+        - containerPort: 5000
+          name: http
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tracks-graphql-api
+  name: tracks-graphql-api
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: tracks-graphql-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tracks-graphql-api
+    spec:
+      containers:
+      - image: kcbabo/tracks-graphql-api:latest
+        name: tracks-rest-api
+        ports:
+        - containerPort: 4000
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracks-rest-api
+  namespace: default
+  labels:
+    app: tracks-rest-api
+spec:
+  ports:
+  - port: 5000
+    protocol: TCP
+  selector:
+    app: tracks-rest-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracks-graphql-api
+  namespace: default
+  labels:
+    app: tracks-graphql-api
+spec:
+  ports:
+  - port: 4000
+    protocol: TCP
+  selector:
+    app: tracks-graphql-api
