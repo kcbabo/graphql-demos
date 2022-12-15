@@ -1,0 +1,30 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: bookinfo-rt
+  namespace: bookinfo
+spec:
+  hosts:
+  - '*'
+  http:
+  - graphql:
+      options:
+        logSensitiveInfo: true
+      executableSchema:
+        local:
+          options:
+            enableIntrospection: true
+          resolverMapRefs:
+          - clusterName: mgmt-cluster
+            name: bookinfo-resolvers
+            namespace: bookinfo
+        schemaRef:
+          clusterName: mgmt-cluster
+          name: bookinfo-schema
+          namespace: bookinfo
+    name: api
+    matchers:
+    - uri:
+        prefix: /graphql
+  virtualGateways:
+  - name: north-south-gw

@@ -1,0 +1,3 @@
+{
+  "query": "{pets { id name status } }"
+}

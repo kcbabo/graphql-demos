@@ -1,0 +1,24 @@
+
+apiVersion: admin.gloo.solo.io/v2
+kind: Workspace
+metadata:
+  name: anything
+  namespace: gloo-mesh
+spec:
+  workloadClusters:
+  - name: '*'
+    namespaces:
+    - name: '*'
+---
+apiVersion: admin.gloo.solo.io/v2
+kind: WorkspaceSettings
+metadata:
+  name: ws-anything
+  namespace: bookinfo
+spec:
+  importFrom:
+  - workspaces:
+    - name: "*"
+  exportTo:
+  - workspaces:
+    - name: "*"
