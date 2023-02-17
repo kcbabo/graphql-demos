@@ -10,18 +10,10 @@ spec:
   - graphql:
       options:
         logSensitiveInfo: true
-      executableSchema:
-        local:
-          options:
-            enableIntrospection: true
-          resolverMapRefs:
-          - clusterName: mgmt-cluster
-            name: bookinfo-resolvers
-            namespace: bookinfo
-        schemaRef:
-          clusterName: mgmt-cluster
-          name: bookinfo-schema
-          namespace: bookinfo
+      schema:
+        clusterName: mgmt-cluster
+        name: bookinfo-graphql
+        namespace: bookinfo
     name: api
     matchers:
     - uri:

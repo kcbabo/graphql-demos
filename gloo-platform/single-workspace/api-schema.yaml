@@ -1,6 +1,6 @@
 
 apiVersion: apimanagement.gloo.solo.io/v2
-kind: ApiSchema
+kind: ApiDoc
 metadata:
   name: bookinfo-schema
   namespace: bookinfo

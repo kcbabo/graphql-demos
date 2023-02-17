@@ -1,0 +1,3 @@
+{
+  "query": "{company_00 { name } company_01 { name } company_02 { name } company_03 { name } company_04 { name } company_05 { name } company_06 { name } company_07 { name } }"
+}

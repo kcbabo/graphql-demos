@@ -1,0 +1,3 @@
+{
+  "query": "{productsForHome { id title reviews { text } ratings { reviewer numStars } } }"
+}

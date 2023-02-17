@@ -1,0 +1,24 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: big-stitched-gql
+  namespace: gloo-system
+spec:
+  stitchedSchema:
+    subschemas:
+    - name: graph1
+      namespace: gloo-system
+    - name: graph2
+      namespace: gloo-system
+    - name: graph3
+      namespace: gloo-system
+    - name: graph4
+      namespace: gloo-system
+    - name: graph5
+      namespace: gloo-system
+    - name: graph6
+      namespace: gloo-system
+    - name: graph7
+      namespace: gloo-system
+    - name: graph8
+      namespace: gloo-system

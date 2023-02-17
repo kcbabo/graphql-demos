@@ -1,0 +1,1731 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: graph1
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          company_00:
+            mockResolver:
+              syncResponse:
+                name: foo
+    schemaDefinition: |
+      
+      type Address_00 {
+        
+        address: String
+
+        
+        city: String
+
+        
+        state: String
+      }
+
+      
+      type Capsule_00 {
+        
+        dragon: Dragon_00
+
+        
+        id: ID
+
+        
+        landings: Int
+
+        
+        missions: [CapsuleMission_00]
+
+        
+        original_launch: Date
+
+        
+        reuse_count: Int
+
+        
+        status: String
+
+        
+        type: String
+      }
+
+      
+      type CapsuleMission_00 {
+        
+        flight: Int
+
+        
+        name: String
+      }
+
+      
+      input CapsulesFind_00 {
+        
+        id: ID
+
+        
+        landings: Int
+
+        
+        mission: String
+
+        
+        original_launch: Date
+
+        
+        reuse_count: Int
+
+        
+        status: String
+
+        
+        type: String
+      }
+
+      
+      type Core_00 {
+        
+        asds_attempts: Int
+
+        
+        asds_landings: Int
+
+        
+        block: Int
+
+        
+        id: ID
+
+        
+        missions: [CapsuleMission_00]
+
+        
+        original_launch: Date
+
+        
+        reuse_count: Int
+
+        
+        rtls_attempts: Int
+
+        
+        rtls_landings: Int
+
+        
+        status: String
+
+        
+        water_landing: Boolean
+      }
+
+      
+      type CoreMission_00 {
+        
+        flight: Int
+
+        
+        name: String
+      }
+
+      
+      input CoresFind_00 {
+        
+        asds_attempts: Int
+
+        
+        asds_landings: Int
+
+        
+        block: Int
+
+        
+        id: String
+
+        
+        missions: String
+
+        
+        original_launch: Date
+
+        
+        reuse_count: Int
+
+        
+        rtls_attempts: Int
+
+        
+        rtls_landings: Int
+
+        
+        status: String
+
+        
+        water_landing: Boolean
+      }
+
+      
+      scalar Date
+
+      
+      type Distance_00 {
+        
+        feet: Float
+
+        
+        meters: Float
+      }
+
+      
+      type Dragon_00 {
+        
+        active: Boolean
+
+        
+        crew_capacity: Int
+
+        
+        description: String
+
+        
+        diameter: Distance_00
+
+        
+        dry_mass_kg: Int
+
+        
+        dry_mass_lb: Int
+
+        
+        first_flight: String
+
+        
+        heat_shield: DragonHeatShield_00
+
+        
+        height_w_trunk: Distance_00
+
+        
+        id: ID
+
+        
+        launch_payload_mass: Mass_00
+
+        
+        launch_payload_vol: Volume_00
+
+        
+        name: String
+
+        
+        orbit_duration_yr: Int
+
+        
+        pressurized_capsule: DragonPressurizedCapsule_00
+
+        
+        return_payload_mass: Mass_00
+
+        
+        return_payload_vol: Volume_00
+
+        
+        sidewall_angle_deg: Float
+
+        
+        thrusters: [DragonThrust_00]
+
+        
+        trunk: DragonTrunk_00
+
+        
+        type: String
+
+        
+        wikipedia: String
+      }
+
+      
+      type DragonHeatShield_00 {
+        
+        dev_partner: String
+
+        
+        material: String
+
+        
+        size_meters: Float
+
+        
+        temp_degrees: Int
+      }
+
+      
+      type DragonPressurizedCapsule_00 {
+        
+        payload_volume: Volume_00
+      }
+
+      
+      type DragonThrust_00 {
+        
+        amount: Int
+
+        
+        fuel_1: String
+
+        
+        fuel_2: String
+
+        
+        pods: Int
+
+        
+        thrust: Force_00
+
+        
+        type: String
+      }
+
+      
+      type DragonTrunk_00 {
+        
+        cargo: DragonTrunkCargo_00
+
+        
+        trunk_volume: Volume_00
+      }
+
+      
+      type DragonTrunkCargo_00 {
+        
+        solar_array: Int
+
+        
+        unpressurized_cargo: Boolean
+      }
+
+      
+      type Force_00 {
+        
+        kN: Float
+
+        
+        lbf: Float
+      }
+
+      
+      type HistoriesResult_00 {
+        
+        data: [History_00]
+
+        
+        result: Result_00
+      }
+
+      
+      type History_00 {
+        
+        details: String
+
+        
+        event_date_unix: Date
+
+        
+        event_date_utc: Date
+
+        
+        flight: Launch_00
+
+        
+        id: ID
+
+        
+        links: Link_00
+
+        
+        title: String
+      }
+
+      
+      input HistoryFind_00 {
+        
+        end: Date
+
+        
+        flight_number: Int
+
+        
+        id: ID
+
+        
+        start: Date
+      }
+
+      
+      type Info_00 {
+        
+        ceo: String
+
+        
+        coo: String
+
+        
+        cto: String
+
+        
+        cto_propulsion: String
+
+        
+        employees: Int
+
+        
+        founded: Int
+
+        
+        founder: String
+
+        
+        headquarters: Address_00
+
+        
+        launch_sites: Int
+
+        
+        links: InfoLinks_00
+
+        
+        name: String
+
+        
+        summary: String
+
+        
+        test_sites: Int
+
+        
+        valuation: Float
+
+        
+        vehicles: Int
+      }
+
+      
+      type InfoLinks_00 {
+        
+        elon_twitter: String
+
+        
+        flickr: String
+
+        
+        twitter: String
+
+        
+        website: String
+      }
+
+      
+      type Landpad_00 {
+        
+        attempted_landings: String
+
+        
+        details: String
+
+        
+        full_name: String
+
+        
+        id: ID
+
+        
+        landing_type: String
+
+        
+        location: Location_00
+
+        
+        status: String
+
+        
+        successful_landings: String
+
+        
+        wikipedia: String
+      }
+
+      
+      type Launch_00 {
+        
+        details: String
+
+        
+        id: ID
+
+        
+        is_tentative: Boolean
+
+        
+        launch_date_local: Date
+
+        
+        launch_date_unix: Date
+
+        
+        launch_date_utc: Date
+
+        
+        launch_site: LaunchSite_00
+
+        
+        launch_success: Boolean
+
+        
+        launch_year: String
+
+        
+        links: LaunchLinks_00
+
+        
+        mission_id: [String]
+
+        
+        mission_name: String
+
+        
+        rocket: LaunchRocket_00
+
+        
+        ships: [Ship_00]
+
+        
+        static_fire_date_unix: Date
+
+        
+        static_fire_date_utc: Date
+
+        
+        telemetry: LaunchTelemetry_00
+
+        
+        tentative_max_precision: String
+
+        
+        upcoming: Boolean
+      }
+
+      
+      input LaunchFind_00 {
+        
+        apoapsis_km: Float
+
+        
+        block: Int
+
+        
+        cap_serial: String
+
+        
+        capsule_reuse: String
+
+        
+        core_flight: Int
+
+        
+        core_reuse: String
+
+        
+        core_serial: String
+
+        
+        customer: String
+
+        
+        eccentricity: Float
+
+        
+        end: Date
+
+        
+        epoch: Date
+
+        
+        fairings_recovered: String
+
+        
+        fairings_recovery_attempt: String
+
+        
+        fairings_reuse: String
+
+        
+        fairings_reused: String
+
+        
+        fairings_ship: String
+
+        
+        gridfins: String
+
+        
+        id: ID
+
+        
+        inclination_deg: Float
+
+        
+        land_success: String
+
+        
+        landing_intent: String
+
+        
+        landing_type: String
+
+        
+        landing_vehicle: String
+
+        
+        launch_date_local: Date
+
+        
+        launch_date_utc: Date
+
+        
+        launch_success: String
+
+        
+        launch_year: String
+
+        
+        legs: String
+
+        
+        lifespan_years: Float
+
+        
+        longitude: Float
+
+        
+        manufacturer: String
+
+        
+        mean_motion: Float
+
+        
+        mission_id: String
+
+        
+        mission_name: String
+
+        
+        nationality: String
+
+        
+        norad_id: Int
+
+        
+        orbit: String
+
+        
+        payload_id: String
+
+        
+        payload_type: String
+
+        
+        periapsis_km: Float
+
+        
+        period_min: Float
+
+        
+        raan: Float
+
+        
+        reference_system: String
+
+        
+        regime: String
+
+        
+        reused: String
+
+        
+        rocket_id: String
+
+        
+        rocket_name: String
+
+        
+        rocket_type: String
+
+        
+        second_stage_block: String
+
+        
+        semi_major_axis_km: Float
+
+        
+        ship: String
+
+        
+        side_core1_reuse: String
+
+        
+        side_core2_reuse: String
+
+        
+        site_id: String
+
+        
+        site_name_long: String
+
+        
+        site_name: String
+
+        
+        start: Date
+
+        
+        tbd: String
+
+        
+        tentative_max_precision: String
+
+        
+        tentative: String
+      }
+
+      
+      type LaunchLinks_00 {
+        
+        article_link: String
+
+        
+        flickr_images: [String]
+
+        
+        mission_patch: String
+
+        
+        mission_patch_small: String
+
+        
+        presskit: String
+
+        
+        reddit_campaign: String
+
+        
+        reddit_launch: String
+
+        
+        reddit_media: String
+
+        
+        reddit_recovery: String
+
+        
+        video_link: String
+
+        
+        wikipedia: String
+      }
+
+      
+      type LaunchRocket_00 {
+        
+        fairings: LaunchRocketFairings_00
+
+        
+        first_stage: LaunchRocketFirstStage_00
+
+        
+        rocket: Rocket_00
+
+        
+        rocket_name: String
+
+        
+        rocket_type: String
+
+        
+        second_stage: LaunchRocketSecondStage_00
+      }
+
+      
+      type LaunchRocketFairings_00 {
+        
+        recovered: Boolean
+
+        
+        recovery_attempt: Boolean
+
+        
+        reused: Boolean
+
+        
+        ship: String
+      }
+
+      
+      type LaunchRocketFirstStage_00 {
+        
+        cores: [LaunchRocketFirstStageCore_00]
+      }
+
+      
+      type LaunchRocketFirstStageCore_00 {
+        
+        block: Int
+
+        
+        core: Core_00
+
+        
+        flight: Int
+
+        
+        gridfins: Boolean
+
+        
+        land_success: Boolean
+
+        
+        landing_intent: Boolean
+
+        
+        landing_type: String
+
+        
+        landing_vehicle: String
+
+        
+        legs: Boolean
+
+        
+        reused: Boolean
+      }
+
+      
+      type LaunchRocketSecondStage_00 {
+        
+        block: Int
+
+        
+        payloads: [Payload_00]
+      }
+
+      
+      type LaunchSite_00 {
+        
+        site_id: String
+
+        
+        site_name: String
+
+        
+        site_name_long: String
+      }
+
+      
+      type LaunchTelemetry_00 {
+        
+        flight_club: String
+      }
+
+      
+      type LaunchesPastResult_00 {
+        
+        data: [Launch_00]
+
+        
+        result: Result_00
+      }
+
+      
+      type Launchpad_00 {
+        
+        attempted_launches: Int
+
+        
+        details: String
+
+        
+        id: ID
+
+        
+        location: Location_00
+
+        
+        name: String
+
+        
+        status: String
+
+        
+        successful_launches: Int
+
+        
+        vehicles_launched: [Rocket_00]
+
+        
+        wikipedia: String
+      }
+
+      
+      type Link_00 {
+        
+        article: String
+
+        
+        reddit: String
+
+        
+        wikipedia: String
+      }
+
+      
+      type Location_00 {
+        
+        latitude: Float
+
+        
+        longitude: Float
+
+        
+        name: String
+
+        
+        region: String
+      }
+
+      
+      type Mass_00 {
+        
+        kg: Int
+
+        
+        lb: Int
+      }
+
+      
+      type Mission_00 {
+        
+        description: String
+
+        
+        id: ID
+
+        
+        manufacturers: [String]
+
+        
+        name: String
+
+        
+        payloads: [Payload_00]
+
+        
+        twitter: String
+
+        
+        website: String
+
+        
+        wikipedia: String
+      }
+
+      
+      type MissionResult_00 {
+        
+        data: [Mission_00]
+
+        
+        result: Result_00
+      }
+
+      
+      input MissionsFind_00 {
+        
+        id: ID
+
+        
+        manufacturer: String
+
+        
+        name: String
+
+        
+        payload_id: String
+      }
+      
+      scalar ObjectID_00
+
+      
+      type Payload_00 {
+        
+        customers: [String]
+
+        
+        id: ID
+
+        
+        manufacturer: String
+
+        
+        nationality: String
+
+        
+        norad_id: [Int]
+
+        
+        orbit: String
+
+        
+        orbit_params: PayloadOrbitParams_00
+
+        
+        payload_mass_kg: Float
+
+        
+        payload_mass_lbs: Float
+
+        
+        payload_type: String
+
+        
+        reused: Boolean
+      }
+
+      
+      type PayloadOrbitParams_00 {
+        
+        apoapsis_km: Float
+
+        
+        arg_of_pericenter: Float
+
+        
+        eccentricity: Float
+
+        
+        epoch: Date
+
+        
+        inclination_deg: Float
+
+        
+        lifespan_years: Float
+
+        
+        longitude: Float
+
+        
+        mean_anomaly: Float
+
+        
+        mean_motion: Float
+
+        
+        periapsis_km: Float
+
+        
+        period_min: Float
+
+        
+        raan: Float
+
+        
+        reference_system: String
+
+        
+        regime: String
+
+        
+        semi_major_axis_km: Float
+      }
+
+      
+      input PayloadsFind_00 {
+        
+        apoapsis_km: Float
+
+        
+        customer: String
+
+        
+        eccentricity: Float
+
+        
+        epoch: Date
+
+        
+        inclination_deg: Float
+
+        
+        lifespan_years: Float
+
+        
+        longitude: Float
+
+        
+        manufacturer: String
+
+        
+        mean_motion: Float
+
+        
+        nationality: String
+
+        
+        norad_id: Int
+
+        
+        orbit: String
+
+        
+        payload_id: ID
+
+        
+        payload_type: String
+
+        
+        periapsis_km: Float
+
+        
+        period_min: Float
+
+        
+        raan: Float
+
+        
+        reference_system: String
+
+        
+        regime: String
+
+        
+        reused: Boolean
+
+        
+        semi_major_axis_km: Float
+      }
+
+      type Query {
+        
+        capsule_00(id: ID!): Capsule_00
+
+        
+        capsules_00(find: CapsulesFind_00, limit: Int, offset: Int, order: String, sort: String): [Capsule_00]
+
+        
+        capsulesPast_00(find: CapsulesFind_00, limit: Int, offset: Int, order: String, sort: String): [Capsule_00]
+
+        
+        capsulesUpcoming_00(find: CapsulesFind_00, limit: Int, offset: Int, order: String, sort: String): [Capsule_00]
+
+        
+        company_00: Info_00 @resolve(name: "company_00")
+
+        
+        core_00(id: ID!): Core_00
+
+        
+        cores_00(find: CoresFind_00, limit: Int, offset: Int, order: String, sort: String): [Core_00]
+
+        
+        coresPast_00(find: CoresFind_00, limit: Int, offset: Int, order: String, sort: String): [Core_00]
+
+        
+        coresUpcoming_00(find: CoresFind_00, limit: Int, offset: Int, order: String, sort: String): [Core_00]
+
+        
+        dragon_00(id: ID!): Dragon_00
+
+        
+        dragons_00(limit: Int, offset: Int): [Dragon_00]
+
+        
+        histories_00(find: HistoryFind_00, limit: Int, offset: Int, order: String, sort: String): [History_00]
+
+        
+        historiesResult_00(find: HistoryFind_00, limit: Int, offset: Int, order: String, sort: String): HistoriesResult_00
+
+        
+        history_00(id: ID!): History_00
+
+        
+        landpad_00(id: ID!): Landpad_00
+
+        
+        landpads_00(limit: Int, offset: Int): [Landpad_00]
+
+        
+        launch_00(id: ID!): Launch_00
+
+        
+        launchLatest_00(offset: Int): Launch_00
+
+        
+        launchNext_00(offset: Int): Launch_00
+
+        
+        launches_00(find: LaunchFind_00, limit: Int, offset: Int, order: String, sort: String): [Launch_00]
+
+        
+        launchesPast_00(find: LaunchFind_00, limit: Int, offset: Int, order: String, sort: String): [Launch_00]
+
+        
+        launchesPastResult_00(find: LaunchFind_00, limit: Int, offset: Int, order: String, sort: String): LaunchesPastResult_00
+
+        
+        launchesUpcoming_00(find: LaunchFind_00, limit: Int, offset: Int, order: String, sort: String): [Launch_00]
+
+        
+        launchpad_00(id: ID!): Launchpad_00
+
+        
+        launchpads_00(limit: Int, offset: Int): [Launchpad_00]
+
+        
+        mission_00(id: ID!): Mission_00
+
+        
+        missions_00(find: MissionsFind_00, limit: Int, offset: Int): [Mission_00]
+
+        
+        missionsResult_00(find: MissionsFind_00, limit: Int, offset: Int): MissionResult_00
+
+        
+        payload_00(id: ID!): Payload_00
+
+        
+        payloads_00(find: PayloadsFind_00, limit: Int, offset: Int, order: String, sort: String): [Payload_00]
+
+        
+        roadster_00: Roadster_00
+
+        
+        rocket_00(id: ID!): Rocket_00
+
+        
+        rockets_00(limit: Int, offset: Int): [Rocket_00]
+
+        
+        rocketsResult_00(limit: Int, offset: Int): RocketsResult_00
+
+        
+        ship_00(id: ID!): Ship_00
+
+        
+        ships_00(find: ShipsFind_00, limit: Int, offset: Int, order: String, sort: String): [Ship_00]
+
+        
+        shipsResult_00(find: ShipsFind_00, limit: Int, offset: Int, order: String, sort: String): ShipsResult_00
+      }
+      
+      type Result_00 {
+        
+        totalCount: Int
+      }
+
+      
+      type Roadster_00 {
+        
+        apoapsis_au: Float
+
+        
+        details: String
+
+        
+        earth_distance_km: Float
+
+        
+        earth_distance_mi: Float
+
+        
+        eccentricity: Float
+
+        
+        epoch_jd: Float
+
+        
+        inclination: Float
+
+        
+        launch_date_unix: Date
+
+        
+        launch_date_utc: Date
+
+        
+        launch_mass_kg: Int
+
+        
+        launch_mass_lbs: Int
+
+        
+        longitude: Float
+
+        
+        mars_distance_km: Float
+
+        
+        mars_distance_mi: Float
+
+        
+        name: String
+
+        
+        norad_id: Int
+
+        
+        orbit_type: Float
+
+        
+        periapsis_arg: Float
+
+        
+        periapsis_au: Float
+
+        
+        period_days: Float
+
+        
+        semi_major_axis_au: Float
+
+        
+        speed_kph: Float
+
+        
+        speed_mph: Float
+
+        
+        wikipedia: String
+      }
+
+      
+      type Rocket_00 {
+        
+        active: Boolean
+
+        
+        boosters: Int
+
+        
+        company: String
+
+        
+        cost_per_launch: Int
+
+        
+        country: String
+
+        
+        description: String
+
+        
+        diameter: Distance_00
+
+        
+        engines: RocketEngines_00
+
+        
+        first_flight: Date
+
+        
+        first_stage: RocketFirstStage_00
+
+        
+        height: Distance_00
+
+        
+        id: ID
+
+        
+        landing_legs: RocketLandingLegs_00
+
+        
+        mass: Mass_00
+
+        
+        name: String
+
+        
+        payload_weights: [RocketPayloadWeight_00]
+
+        
+        second_stage: RocketSecondStage_00
+
+        
+        stages: Int
+
+        
+        success_rate_pct: Int
+
+        
+        type: String
+
+        
+        wikipedia: String
+      }
+
+      
+      type RocketEngines_00 {
+        
+        engine_loss_max: String
+
+        
+        layout: String
+
+        
+        number: Int
+
+        
+        propellant_1: String
+
+        
+        propellant_2: String
+
+        
+        thrust_sea_level: Force_00
+
+        
+        thrust_to_weight: Float
+
+        
+        thrust_vacuum: Force_00
+
+        
+        type: String
+
+        
+        version: String
+      }
+
+      
+      type RocketFirstStage_00 {
+        
+        burn_time_sec: Int
+
+        
+        engines: Int
+
+        
+        fuel_amount_tons: Float
+
+        
+        reusable: Boolean
+
+        
+        thrust_sea_level: Force_00
+
+        
+        thrust_vacuum: Force_00
+      }
+
+      
+      type RocketLandingLegs_00 {
+        
+        material: String
+
+        
+        number: Int
+      }
+
+      
+      type RocketPayloadWeight_00 {
+        
+        id: String
+
+        
+        kg: Int
+
+        
+        lb: Int
+
+        
+        name: String
+      }
+
+      
+      type RocketSecondStage_00 {
+        
+        burn_time_sec: Int
+
+        
+        engines: Int
+
+        
+        fuel_amount_tons: Float
+
+        
+        payloads: RocketSecondStagePayloads_00
+
+        
+        thrust: Force_00
+      }
+
+      
+      type RocketSecondStagePayloadCompositeFairing_00 {
+        
+        diameter: Distance_00
+
+        
+        height: Distance_00
+      }
+
+      
+      type RocketSecondStagePayloads_00 {
+        
+        composite_fairing: RocketSecondStagePayloadCompositeFairing_00
+
+        
+        option_1: String
+      }
+
+      
+      type RocketsResult_00 {
+        
+        data: [Rocket_00]
+
+        
+        result: Result_00
+      }
+
+      
+      type Ship_00 {
+        
+        abs: Int
+
+        
+        active: Boolean
+
+        
+        attempted_landings: Int
+
+        
+        class: Int
+
+        
+        course_deg: Int
+
+        
+        home_port: String
+
+        
+        id: ID
+
+        
+        image: String
+
+        
+        imo: Int
+
+        
+        missions: [ShipMission_00]
+
+        
+        mmsi: Int
+
+        
+        model: String
+
+        
+        name: String
+
+        
+        position: ShipLocation_00
+
+        
+        roles: [String]
+
+        
+        speed_kn: Float
+
+        
+        status: String
+
+        
+        successful_landings: Int
+
+        
+        type: String
+
+        
+        url: String
+
+        
+        weight_kg: Int
+
+        
+        weight_lbs: Int
+
+        
+        year_built: Int
+      }
+
+      
+      type ShipLocation_00 {
+        
+        latitude: Float
+
+        
+        longitude: Float
+      }
+
+      
+      type ShipMission_00 {
+        
+        flight: String
+
+        
+        name: String
+      }
+
+      
+      input ShipsFind_00 {
+        
+        id: ID
+
+        
+        name: String
+
+        
+        model: String
+
+        
+        type: String
+
+        
+        role: String
+
+        
+        active: Boolean
+
+        
+        imo: Int
+
+        
+        mmsi: Int
+
+        
+        abs: Int
+
+        
+        class: Int
+
+        
+        weight_lbs: Int
+
+        
+        weight_kg: Int
+
+        
+        year_built: Int
+
+        
+        home_port: String
+
+        
+        status: String
+
+        
+        speed_kn: Int
+
+        
+        course_deg: Int
+
+        
+        latitude: Float
+
+        
+        longitude: Float
+
+        
+        successful_landings: Int
+
+        
+        attempted_landings: Int
+
+        
+        mission: String
+      }
+
+      
+      type ShipsResult_00 {
+        
+        data: [Ship_00]
+
+        
+        result: Result_00
+      }
+
+      """
+      expression to compare columns of type String. All fields are combined with logical 'AND'.
+      """
+      input String_comparison_exp_00 {
+        
+        _eq: String
+
+        
+        _gt: String
+
+        
+        _gte: String
+
+        
+        _ilike: String
+
+        
+        _in: [String!]
+
+        
+        _is_null: Boolean
+
+        
+        _like: String
+
+        
+        _lt: String
+
+        
+        _lte: String
+
+        
+        _neq: String
+
+        
+        _nilike: String
+
+        
+        _nin: [String!]
+
+        
+        _nlike: String
+
+        
+        _nsimilar: String
+
+        
+        _similar: String
+      }
+      
+      type Volume_00 {
+        
+        cubic_feet: Int
+
+        
+        cubic_meters: Int
+      }
+
+
+
+
+
