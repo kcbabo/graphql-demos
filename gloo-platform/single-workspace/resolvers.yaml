@@ -2,7 +2,6 @@
 apiVersion: apimanagement.gloo.solo.io/v2
 kind: GraphQLResolverMap
 metadata:
-  clusterName: mgmt-cluster
   name: bookinfo-resolvers
   namespace: bookinfo
 spec:
@@ -16,7 +15,6 @@ spec:
               - port:
                   number: 9080
                 ref:
-                  cluster: mgmt-cluster
                   name: productpage
                   namespace: bookinfo
               request:
@@ -37,7 +35,6 @@ spec:
               - port:
                   number: 9080
                 ref:
-                  cluster: mgmt-cluster
                   name: reviews
                   namespace: bookinfo
               request:
@@ -58,7 +55,6 @@ spec:
               - port:
                   number: 9080
                 ref:
-                  cluster: mgmt-cluster
                   name: ratings
                   namespace: bookinfo
               request:

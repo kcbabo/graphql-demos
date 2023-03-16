@@ -1,20 +1,17 @@
-
 apiVersion: networking.gloo.solo.io/v2
 kind: VirtualGateway
 metadata:
-  name: north-south-gw
-  namespace: bookinfo
+  name: istio-ingressgateway
+  namespace: gloo-mesh-gateways
 spec:
-  workloads:
-    - selector:
-        labels:
-          istio: ingressgateway
-        namespace: gloo-gateway
-  listeners: 
-    - http: {}
-      port:
+  listeners:
+    - port:
         number: 80
+      http: {}
       allowedRouteTables:
         - host: '*'
-          selector:
-            workspace: anything
+  workloads:
+  - selector:
+      labels:
+        istio: ingressgateway
+      cluster: gg-demo-single

@@ -8,10 +8,10 @@ spec:
     options: 
       enableIntrospection: true
     resolverMapRefs:
-    - clusterName: cluster-1
-      name: bookinfo-resolvers
+    - name: bookinfo-resolvers
       namespace: bookinfo
+      clusterName: gg-demo-single
   schemaRef:
-    clusterName: cluster-1
     name: bookinfo-schema
     namespace: bookinfo
+    clusterName: gg-demo-single

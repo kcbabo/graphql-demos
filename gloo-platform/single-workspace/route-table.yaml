@@ -5,18 +5,19 @@ metadata:
   namespace: bookinfo
 spec:
   hosts:
-  - '*'
+  - 'api.example.com'
+  virtualGateways:
+  - name: istio-ingressgateway
+    namespace: gloo-mesh-gateways
   http:
   - graphql:
       options:
         logSensitiveInfo: true
       schema:
-        clusterName: mgmt-cluster
         name: bookinfo-graphql
         namespace: bookinfo
+        clusterName: gg-demo-single
     name: api
     matchers:
     - uri:
         prefix: /graphql
-  virtualGateways:
-  - name: north-south-gw
