@@ -1,0 +1,16 @@
+apiVersion: apimanagement.gloo.solo.io/v2
+kind: GraphQLSchema
+metadata:
+  name: bookinfo-graphql-schema
+  namespace: bookinfo
+spec:
+  schemaRef:
+    name: bookinfo-api-doc
+    namespace: bookinfo
+    clusterName: gg-demo-single
+  resolved:
+    options: {}
+    resolverMapRefs:
+    - name: bookinfo-graphql-resolvers
+      namespace: bookinfo
+      clusterName: gg-demo-single

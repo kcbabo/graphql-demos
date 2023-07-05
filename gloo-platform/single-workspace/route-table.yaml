@@ -1,23 +1,22 @@
 apiVersion: networking.gloo.solo.io/v2
 kind: RouteTable
 metadata:
-  name: bookinfo-rt
+  name: graphql
   namespace: bookinfo
+  labels:
+    istio: ingressgateway
 spec:
   hosts:
-  - 'api.example.com'
+  - api.example.com
   virtualGateways:
   - name: istio-ingressgateway
     namespace: gloo-mesh-gateways
   http:
   - graphql:
-      options:
-        logSensitiveInfo: true
       schema:
-        name: bookinfo-graphql
+        name: bookinfo-graphql-schema
         namespace: bookinfo
         clusterName: gg-demo-single
-    name: api
     matchers:
     - uri:
         prefix: /graphql

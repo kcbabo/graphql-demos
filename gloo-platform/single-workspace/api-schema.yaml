@@ -1,8 +1,7 @@
-
 apiVersion: apimanagement.gloo.solo.io/v2
 kind: ApiDoc
 metadata:
-  name: bookinfo-schema
+  name: bookinfo-api-doc
   namespace: bookinfo
 spec:
   graphql:
@@ -14,24 +13,28 @@ spec:
       """Each book has a product entry"""
       type Product {
         """Unique identifier for books"""
-      id: String
-      """The book title"""
-      title: String
-      """Description of a book in HTML"""
-      descriptionHtml: String
-      """List of reader reviews for this book. Queries the reviews REST service"""
-      reviews: [Review] 
-      """List of reader ratings for this book. Queries the ratings REST service"""
-      ratings: [Rating] 
+        id: String
+        """The book title"""
+        title: String
+        """Number of pages in the book"""
+        pages: Int
+        """Year the book was published"""
+        year: Int
+        """Description of a book in HTML"""
+        descriptionHtml: String
+        """List of reader reviews for this book. Queries the reviews REST service"""
+        reviews: [Review]
+        """List of reader ratings for this book. Queries the ratings REST service"""
+        ratings: [Rating]
       }
       """A book review"""
       type Review {
-          """Name of the reviewer"""
-          reviewer: String
-          """Review details"""
-          text: String
-          "Reviewer Rating, this field is provided by the reviews REST service, which queries the ratings REST service"
-          rating: ReviewerRating
+        """Name of the reviewer"""
+        reviewer: String
+        """Review details"""
+        text: String
+        "Reviewer Rating, this field is provided by the reviews REST service, which queries the ratings REST service"
+        rating: ReviewerRating
       }
       type ReviewerRating {
         stars: Int
@@ -39,8 +42,8 @@ spec:
       }
       """A book rating"""
       type Rating {
-          """Name of the user peforming the rating"""
-          reviewer: String
-          """Number of stars for this rating"""
-          numStars: Int
+        """Name of the user peforming the rating"""
+        reviewer: String
+        """Number of stars for this rating"""
+        numStars: Int
       }
