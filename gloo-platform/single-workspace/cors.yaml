@@ -16,3 +16,4 @@ spec:
     - content-type
     allowOrigins:
     - exact: http://localhost:8090
+
