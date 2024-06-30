@@ -1,0 +1,31 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: foo-graphql
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          Query|foo:
+            mockResolver:
+              syncResponse:
+                message: hello
+          Mutation|createFoo:
+            mockResolver:
+              syncResponse:
+                message: foo mutated
+    schemaDefinition: |
+      type Mutation {
+        createFoo(message: String): Foo @resolve(name: "Mutation|createFoo")
+      }
+
+      type Query {
+        foo: Foo @resolve(name: "Query|foo")
+      }
+
+      type Foo {
+        message: String
+      }

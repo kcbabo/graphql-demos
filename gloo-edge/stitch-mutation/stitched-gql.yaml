@@ -1,0 +1,12 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: stitched-gql
+  namespace: gloo-system
+spec:
+  stitchedSchema:
+    subschemas:
+    - name: foo-graphql
+      namespace: gloo-system
+    - name: bar-graphql
+      namespace: gloo-system

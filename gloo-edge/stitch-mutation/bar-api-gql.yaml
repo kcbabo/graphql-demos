@@ -1,0 +1,31 @@
+apiVersion: graphql.gloo.solo.io/v1beta1
+kind: GraphQLApi
+metadata:
+  name: bar-graphql
+  namespace: gloo-system
+spec:
+  executableSchema:
+    executor:
+      local:
+        enableIntrospection: true
+        resolutions:
+          Query|bar:
+            mockResolver:
+              syncResponse:
+                message: hello
+          Mutation|createBar:
+            mockResolver:
+              syncResponse:
+                message: bar mutated
+    schemaDefinition: |
+      type Mutation {
+        createBar(message: String): Bar @resolve(name: "Mutation|createBar")
+      }
+
+      type Query {
+        bar: Bar @resolve(name: "Query|bar")
+      }
+
+      type Bar {
+        message: String
+      }
